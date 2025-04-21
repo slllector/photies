@@ -98,18 +98,7 @@ footer {
   }
 }
 
-.three-columns {
-  display: grid;
-  gap: 1.5rem;
 
-  @container (width > calc(3 * 25ch)) {
-    grid-template-columns: repeat(3, 1fr);
-  
-    > .span-2 {
-      grid-column: span 2;
-    }
-  }
-}
 
 .visually-hidden {
   clip: rect(0 0 0 0);
