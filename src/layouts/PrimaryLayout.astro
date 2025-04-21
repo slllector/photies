@@ -1,0 +1,29 @@
+---
+import '../style.css';
+import Header from '../components/Header.astro';
+const { title } = Astro.props;
+const siteTitle = "Slllector Photography";
+const pageTitle = title ? `${title} | ${siteTitle}` : siteTitle;
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{pageTitle}</title>
+	</head>
+	<body class="base-layout">
+		<Header />
+		<main id="main-content">
+    	<slot />
+		</main>
+		<footer>
+			<p>
+				&copy; 2025 Slllector - slllector0[at]gmail.com
+			</p>
+		</footer>
+	</body>
+</html>
+

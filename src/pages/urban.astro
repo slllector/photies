@@ -1,0 +1,10 @@
+---
+import PrimaryLayout from '../layouts/PrimaryLayout.astro';
+import Gallery from '../components/Gallery.astro';
+
+const collectionName = 'urbanPhotos'; // Change this for each gallery
+---
+
+<PrimaryLayout title="Urban">
+  <Gallery collection={collectionName} />
+</PrimaryLayout>

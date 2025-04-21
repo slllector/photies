@@ -1,0 +1,33 @@
+---
+import PrimaryLayout from '../layouts/PrimaryLayout.astro';
+
+import { getCollection } from 'astro:content';
+import { CldImage } from 'astro-cloudinary';
+---
+
+<PrimaryLayout>
+  <div class="not-found">
+    <img src="https://res.cloudinary.com/db1vng5gb/image/upload/v1745177375/web/urban/urban_00186_xgmhq0.webp" alt="Sorry">
+    <h3>Page not found (404)</h3>
+      <p>Looks like the page your requested doesn't exist.</p>
+      <p><a href="/" class="button">&larr; Back home</a></p>
+  </div>
+</PrimaryLayout>
+
+<style>
+  .not-found {
+    margin: 0 auto;
+    max-width: 500px;
+    text-align: center;
+  }
+  img {
+    margin-bottom: 1rem;
+  }
+  h3 {
+    font-size: var(--fs-600);
+    margin-bottom: 0.5rem;
+  }
+  p {
+    margin-bottom: 1rem;
+  }
+</style>

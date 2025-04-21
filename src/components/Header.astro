@@ -1,0 +1,183 @@
+---
+const navItems = [
+  {
+		path: '/urban',
+		label: 'Urban',
+	},
+	{
+		path: '/nature',
+		label: 'Nature',
+	},
+  {
+		path: '/landscapes',
+		label: 'Landscapes',
+	},
+  {
+		path: '/plants',
+		label: 'Plants',
+	},
+];
+
+const { pathname } = Astro.url;
+---
+
+<script>
+		const navToggle = document.querySelector('[aria-controls="primary-nav"]');
+	
+		navToggle?.addEventListener('click', () => {
+			const navOpened = navToggle.getAttribute("aria-expanded");
+			if (navOpened === 'false') {
+				navToggle.setAttribute("aria-expanded", 'true');
+			} else {
+				navToggle.setAttribute("aria-expanded", 'false');
+			}
+		});
+	</script>
+
+<header>
+  <a href="#main-content" class="skip-to-main">Skip to main content</a>
+  <a href="/" class="logo">
+    <h1>Slllector</h1>
+  </a>
+
+  <button aria-controls="primary-nav" aria-expanded="false">
+    <span class="visually-hidden">Menu</span>
+    <img class="icon-hamburger" src="/images/icon-menu.svg" alt="">
+    <img class="icon-close" src="/images/icon-menu-close.svg" alt="">
+  </button>
+
+
+<nav id="primary-nav">
+  <ul>
+    {navItems.map((item) => (
+      <li>
+        <a 
+          href={item.path} 
+          class={pathname === item.path ? 'active' : ''}
+        >
+          {item.label}
+        </a>
+      </li>
+    ))}
+  </ul>
+</nav>
+</header>
+
+<style>
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-block: 
+      clamp(1.5rem, 5vmax, 5rem) 
+      clamp(1.5rem, 5vmax, 2rem);
+  }
+
+  h1 {
+    background-color: var(--clr-black);
+    color: var(--clr-white);
+    font-size: var(--fs-400);
+    font-weight: var(--fw-regular);
+    letter-spacing: 0.1em;
+    padding: 1.5rem;
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+    gap: 1rem;
+  }
+
+  a {
+    text-decoration: none;
+    color: currentColor;
+
+    &:hover,
+    &:focus-visible {
+      color: var(--clr-red);
+    }
+  }
+
+  a.active {
+  color: var(--clr-red);
+  font-weight: bold;
+}
+
+  button {
+    display: none;
+  }
+
+  @media (width < 750px) {
+    button {
+      display: block;
+      position: absolute;
+      z-index: 10;
+      right: 1rem;
+      padding: 1rem;
+      background: transparent;
+      border: 0;
+
+      .icon-close {
+        display: none;
+      }
+    }
+    nav {
+      display: none;
+    }
+
+    [aria-expanded='true'] {
+      .icon-hamburger {
+        display: none;
+      }
+      .icon-close {
+        display: block;
+      }
+    }
+    
+    [aria-expanded='true'] + nav {
+      display: block;
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      width: 80%;
+      margin-left: auto;
+      background-color: var(--clr-white);
+      box-shadow: 0 0 0 100vmax hsl(0 0 0 / .3);
+
+      ul {
+        margin-top: 20vh;
+        margin-left: 3rem;
+        display: grid;
+        gap: 2rem;
+        font-size: var(--fs-600);
+      }
+
+      a {
+      color: var(--clr-black);
+
+      &:hover, 
+      &:focus-visible {
+        color: var(--clr-red);
+      }
+      }
+    }
+  }
+
+  .skip-to-main {
+    position: absolute;
+    font-weight: var(--fw-bold);
+    padding: 1em 3em;
+    translate: -400%;
+
+    &:hover, 
+    &:focus-visible {
+      background: var(--clr-accent-400);
+      color: var(--clr-black);
+      translate:0;
+    }
+  }
+</style>

@@ -1,0 +1,34 @@
+---
+import { getCollection } from 'astro:content';
+import { CldImage } from 'astro-cloudinary';
+import { getAltTextFromPublicId } from '../utils/helpers';
+
+interface ImageData {
+  public_id: string;
+  width: number;
+  height: number;
+}
+
+const { collection } = Astro.props;
+const photos = await getCollection(collection);
+---
+
+<ul class="gallery" role="list">
+  {photos.map(({ data }: { data: ImageData }) => {
+    const altText = getAltTextFromPublicId(data.public_id);
+    return (
+      <li>
+        <figure>
+          <CldImage 
+            src={data.public_id}
+            width={data.width}
+            height={data.height}
+            alt={altText}
+            title={altText}
+          />
+          <figcaption>{altText}</figcaption>
+        </figure>
+      </li>
+    );
+  })}
+</ul>
