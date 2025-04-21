@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import { CldImage } from 'astro-cloudinary';
 import { getAltTextFromPublicId } from '../utils/helpers';
+const { title } = Astro.props;
 
 interface ImageData {
   public_id: string;
@@ -9,12 +10,18 @@ interface ImageData {
   height: number;
 }
 
+interface CollectionEntry {
+  data: ImageData;
+}
+
 const { collection } = Astro.props;
-const photos = await getCollection(collection);
+const photos = await getCollection(collection) as CollectionEntry[]; // Explicitly type the returned collection
 ---
 
+<h2>{title}</h2>
+
 <ul class="gallery" role="list">
-  {photos.map(({ data }: { data: ImageData }) => {
+  {photos.map(({ data }) => {
     const altText = getAltTextFromPublicId(data.public_id);
     return (
       <li>
@@ -32,3 +39,32 @@ const photos = await getCollection(collection);
     );
   })}
 </ul>
+
+<style>
+  h2 {
+    font-weight: var(--fw-regular);
+    letter-spacing: 0.1em;
+    padding-bottom: 2rem;
+  }
+  /* GALLERY */
+.gallery {
+  column-width: 300px;
+}
+
+figure {
+  margin: 0;
+  margin-bottom: 1rem;
+  display: grid;
+  grid-template-areas: "card";
+  place-items: end;
+  text-transform: capitalize;
+}
+
+.gallery figure > * {
+  grid-area: card;
+}
+.gallery figcaption {
+  padding: 0.25em 0.5em;
+  background-color: hsl(0 0% 100% / 60%);
+}
+</style>

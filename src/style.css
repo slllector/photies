@@ -76,6 +76,7 @@ section {
 
 footer {
   padding: 2rem 0;
+  text-align: center;
 }
 
 .base-layout {
@@ -155,27 +156,4 @@ footer {
     background-color: var(--clr-black);
     color: var(--clr-white);
   }
-}
-
-/* GALLERY */
-.gallery {
-  column-width: 300px;
-}
-
-figure {
-  margin: 0;
-  display: grid;
-  grid-template-rows: 1fr auto;
-  margin-bottom: 1rem;
-  break-inside: avoid;
-}
-figure > img {
-  grid-row: 1 / -1;
-  grid-column: 1;
-}
-
-figcaption {
-  padding: 0.2em 0.5em;
-  background-color: var(--clr-accent-400);
-  /* justify-self: start; */
 }

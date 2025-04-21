@@ -1,16 +1,22 @@
 ---
 const { class: className } = Astro.props;
+
+import { CldImage } from 'astro-cloudinary';
+const publicId = 'web/urban/urban_00244_odafqn.webp';
 ---
 
 <div class:list={[className, "front-page-container"]}>
 <h2 class="visually-hidden">Featured Image</h2>
 <article>
-  <img src="" alt="">
+  <CldImage 
+    src={publicId}
+    alt="About"
+  />
   <h3>About</h3>
   <div class="flow">
     <p>Hi, I'm the person behind Slllector. I love taking photos that tell real, honest stories—whether it's a quiet moment or something that just catches the eye. Thanks for stopping by. I hope you enjoy seeing the world the way I do, one photo at a time.</p>
     <a href="#" class="button">
-      View my photographs
+      Get in touch!
     </a>
   </div>
 </article>
