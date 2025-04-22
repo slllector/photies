@@ -15,7 +15,7 @@ interface CollectionEntry {
 }
 
 const { collection } = Astro.props;
-const photos = await getCollection(collection) as CollectionEntry[]; // Explicitly type the returned collection
+const photos = await getCollection(collection) as CollectionEntry[];
 ---
 
 <h2>{title}</h2>
@@ -26,13 +26,18 @@ const photos = await getCollection(collection) as CollectionEntry[]; // Explicit
     return (
       <li>
         <figure>
-          <CldImage 
-            src={data.public_id}
-            width={data.width}
-            height={data.height}
-            alt={altText}
-            title={altText}
-          />
+
+            <CldImage 
+              src={data.public_id}
+              width={data.width}
+              height={data.height}
+              alt={altText}
+              title={altText}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              loading="lazy"
+              format="auto"
+            />
+
           <figcaption>{altText}</figcaption>
         </figure>
       </li>

@@ -2,6 +2,7 @@
 import '../style.css';
 import Header from '../components/Header.astro';
 const { title } = Astro.props;
+const currentYear = new Date().getFullYear();
 const siteTitle = "Slllector Photography";
 const pageTitle = title ? `${title} | ${siteTitle}` : siteTitle;
 ---
@@ -20,7 +21,7 @@ const pageTitle = title ? `${title} | ${siteTitle}` : siteTitle;
     	<slot />
 		</main>
 		<footer>
-				&copy; 2025 Slllector - slllector0[at]gmail.com
-		</footer>
+				&copy; {currentYear} Slllector. All rights reserved.
+		</footer>	
 	</body>
 </html>

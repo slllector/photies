@@ -3,9 +3,10 @@ import PrimaryLayout from '../layouts/PrimaryLayout.astro';
 
 import { CldImage } from 'astro-cloudinary';
 const publicId = 'web/urban/urban_00186_xgmhq0.webp';
+const title = "Page not found";
 ---
 
-<PrimaryLayout>
+<PrimaryLayout title={title}>
   <div class="not-found">
     <CldImage 
     src={publicId}
