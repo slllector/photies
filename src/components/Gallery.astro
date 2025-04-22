@@ -41,16 +41,14 @@ const photos = await getCollection(collection) as CollectionEntry[]; // Explicit
 </ul>
 
 <style>
-  h2 {
-    font-weight: var(--fw-regular);
-    letter-spacing: 0.1em;
-    padding-bottom: 2rem;
-  }
-  /* GALLERY */
+h2 {
+  font-weight: var(--fw-regular);
+  letter-spacing: 0.1em;
+  padding-bottom: 2rem;
+}
 .gallery {
   column-width: 300px;
 }
-
 figure {
   margin: 0;
   margin-bottom: 1rem;
@@ -59,7 +57,6 @@ figure {
   place-items: end;
   text-transform: capitalize;
 }
-
 .gallery figure > * {
   grid-area: card;
 }

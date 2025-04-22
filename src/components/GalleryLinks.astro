@@ -9,13 +9,24 @@ const galleryImages = {
 };
 ---
 
-<div class="inverted flow">
+<div class="flow gallery-links-container">
   <h2 class="visually-hidden">Galleries</h2>
-  <ul role="list" class="separated-list">
+
+  <ul role="list" class="gallery-links">
     {Object.entries(galleryImages).map(([key, image]) => (
       <li>
         <a href={`/${key}`}>
-          <CldImage src={image} alt={key.charAt(0).toUpperCase() + key.slice(1)} />
+          <CldImage 
+            src={image} 
+            alt={key.charAt(0).toUpperCase() + key.slice(1)} 
+            width={600}
+            height={600}
+            crop={{
+              type: 'auto',
+              source: true
+            }}
+            sizes="25vw"
+          />
         </a>
         <a href={`/${key}`} class="button">
           {key.charAt(0).toUpperCase() + key.slice(1)}
@@ -23,4 +34,17 @@ const galleryImages = {
       </li>
     ))}
   </ul>
+
 </div>
+
+<style>
+.gallery-links-container {
+  container-type: inline-size;
+}
+.gallery-links {
+  display: grid;
+  gap: 2rem 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(25ch, 1fr));
+}
+
+</style>

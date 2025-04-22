@@ -109,24 +109,12 @@ footer {
   width: 1px;
 }
 
-.inverted {
-  background-color: var(--clr-white);
-}
-
 .flow > * + * {
   margin-block-start: var(--flow-space, 1em);
 }
 
 .section {
   margin-block-end: 3rem;
-}
-/* add a separator between all items */
-.separated-list {
-  & > * + *:before {
-    content: '';
-    display: block;
-    margin-block: 1.5rem
-  }
 }
 
 .button {
