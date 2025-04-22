@@ -1,0 +1,26 @@
+---
+import { CldImage } from 'astro-cloudinary';
+
+const galleryImages = {
+  urban: 'web/urban/urban_00001_auibak.webp',
+  nature: 'web/nature/nature_00001_ztb6gw.webp',
+  landscapes: 'web/landscapes/landscapes_00001_huwiy9.webp',
+  plants: 'web/plants/plants_00001_sypznv.webp',
+};
+---
+
+<div class="inverted flow">
+  <h2 class="visually-hidden">Galleries</h2>
+  <ul role="list" class="separated-list">
+    {Object.entries(galleryImages).map(([key, image]) => (
+      <li>
+        <a href={`/${key}`}>
+          <CldImage src={image} alt={key.charAt(0).toUpperCase() + key.slice(1)} />
+        </a>
+        <a href={`/${key}`} class="button">
+          {key.charAt(0).toUpperCase() + key.slice(1)}
+        </a>
+      </li>
+    ))}
+  </ul>
+</div>

@@ -72,6 +72,7 @@ body {
 main, 
 section {
   container-type: inline-size;
+  margin-bottom: 2rem;
 }
 
 footer {
@@ -97,8 +98,6 @@ footer {
     grid-column: 1 / -1;
   }
 }
-
-
 
 .visually-hidden {
   clip: rect(0 0 0 0);

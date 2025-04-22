@@ -1,39 +1,10 @@
 ---
-import PrimaryLayout from '../layouts/PrimaryLayout.astro'
-import FrontPage from '../components/FrontPage.astro'
+import PrimaryLayout from '../layouts/PrimaryLayout.astro';
+import FrontPage from '../components/FrontPage.astro';
+import GalleryLinks from '../components/GalleryLinks.astro'
 ---
 
 <PrimaryLayout title="Home">
-	<div class="section">
-		<FrontPage class="full-width" />
-		<div class="inverted flow">
-			<h2 class="visually-hidden">Galleries</h2>
-				<ul role="list" class="separated-list">
-					<li>
-							<a href="/nature"><img src="" alt="Nature"></a>
-							<a href="/nature" class="button">
-								Nature
-							</a>
-					</li>
-					<li>
-						<a href="/plants"><img src="" alt="Plants"></a>
-						<a href="/plants" class="button">
-							Plants
-						</a>
-					</li>
-					<li>
-						<a href="/urban"><img src="" alt="Urban"></a>
-						<a href="/urban" class="button">
-							Urban
-						</a>
-					</li>
-					<li>
-						<a href="/landscapes"><img src="" alt="Landscapes"></a>
-						<a href="/landscapes" class="button">
-							Landscapes
-						</a>
-					</li>
-				</ul>
-		</div>
-	</div>
+	<FrontPage class="full-width" />
+	<GalleryLinks class="full-width" />
 </PrimaryLayout>
