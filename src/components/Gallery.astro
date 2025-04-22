@@ -2,7 +2,8 @@
 import { getCollection } from 'astro:content';
 import { CldImage } from 'astro-cloudinary';
 import { getAltTextFromPublicId } from '../utils/helpers';
-const { title } = Astro.props;
+
+const { title, collection } = Astro.props;
 
 interface ImageData {
   public_id: string;
@@ -14,7 +15,6 @@ interface CollectionEntry {
   data: ImageData;
 }
 
-const { collection } = Astro.props;
 const photos = await getCollection(collection) as CollectionEntry[];
 ---
 
@@ -26,7 +26,13 @@ const photos = await getCollection(collection) as CollectionEntry[];
     return (
       <li>
         <figure>
-
+          <a 
+            href={`https://res.cloudinary.com/db1vng5gb/image/upload/${data.public_id}`} 
+            class="glightbox"
+            data-gallery="gallery1"
+            data-type="image" 
+            data-sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" 
+          >
             <CldImage 
               src={data.public_id}
               width={data.width}
@@ -37,13 +43,15 @@ const photos = await getCollection(collection) as CollectionEntry[];
               loading="lazy"
               format="auto"
             />
-
+          </a>
           <figcaption>{altText}</figcaption>
         </figure>
       </li>
     );
   })}
 </ul>
+
+<script type="module" src="/src/scripts/init-lightbox.js"></script>
 
 <style>
 h2 {
