@@ -4,34 +4,37 @@ const { collection } = Astro.props;
 
 // Glob import all images from the selected collection (landscapes, nature, etc.)
 const allImages = import.meta.glob('/src/assets/{landscapes,nature,plants,urban}/*.{jpg,jpeg,webp,png}', {
-  eager: true,
-  query: { as: 'image' }
+  eager: false, // Set to false for lazy loading instead of eager
 });
-
 
 // Filter out images based on the collection
 const imageEntries = Object.entries(allImages)
   .filter(([path]) => path.includes(`/${collection}/`)) // Ensure the right collection
   .sort(([a], [b]) => a.localeCompare(b)); // Sort by name or filename
 
-// Dynamically import images
+// Use Promise.all to resolve dynamic imports
 const imageImports = await Promise.all(imageEntries.map(async ([path, img]) => {
-  const imageModule = await import(path);
-  return { path, imgSrc: imageModule.default || imageModule }; // safely access the default export
+  // Resolve the dynamic import and cast the result to any
+  const resolvedImg: any = await img();  // Resolve the promise returned by dynamic import
+  const filename = path.split('/').pop()?.split('.').shift() || 'Untitled';
+  return {
+    path,
+    imgSrc: resolvedImg.default,  // Access the default export of the resolved image
+    filename
+  };
 }));
+
 ---
 
 <ul class="gallery" role="list">
   {imageImports.length === 0 ? (
     <li>No images found for this gallery. Please check the collection name.</li>
   ) : (
-    imageImports.map(({ path, imgSrc }) => {
-      const filename = path.split('/').pop()?.split('.').shift() || "Untitled";
-
+    imageImports.map(({ imgSrc, filename }) => {
       return (
         <li>
           <figure>
-            <Image src={imgSrc} alt={filename.replace(/[-_]/g, ' ')} style={{ width: '100%', height: 'auto' }} />
+            <Image src={imgSrc} alt={filename.replace(/[-_]/g, ' ')} class="image" />
             <figcaption>{filename.replace(/[-_]/g, ' ')}</figcaption>
           </figure>
         </li>
@@ -59,5 +62,10 @@ figure {
 .gallery figcaption {
   padding: 0.25em 0.5em;
   background-color: hsl(0 0% 100% / 60%);
+}
+
+.image {
+  width: 100%;
+  height: auto;
 }
 </style>
