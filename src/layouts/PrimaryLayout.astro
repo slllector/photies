@@ -12,7 +12,6 @@ const pageTitle = title ? `${title} | ${siteTitle}` : siteTitle;
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{pageTitle}</title>
 	</head>
@@ -24,7 +23,5 @@ const pageTitle = title ? `${title} | ${siteTitle}` : siteTitle;
 		<footer>
 				&copy; {currentYear} Slllector. All rights reserved.
 		</footer>	
-		<script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js" defer></script>
-		<script type="module" src="/scripts/init-lightbox.js"></script>
 	</body>
 </html>

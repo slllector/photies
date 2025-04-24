@@ -1,50 +1,50 @@
 ---
-import { CldImage } from 'astro-cloudinary';
+import { Image } from 'astro:assets';
 
-const galleryImages = {
-  urban: 'web/urban/urban_00001_auibak.webp',
-  nature: 'web/nature/nature_00001_ztb6gw.webp',
-  landscapes: 'web/landscapes/landscapes_00001_huwiy9.webp',
-  plants: 'web/plants/plants_00001_sypznv.webp',
-};
+// Eagerly load all images in the folder
+const images = import.meta.glob('../assets/gallery-links/*', { eager: true });
+
+const galleryItems = [
+  { route: '/gallery/urban', name: 'Urban', file: '../assets/gallery-links/urban.webp' },
+  { route: '/gallery/nature', name: 'Nature', file: '../assets/gallery-links/nature.webp' },
+  { route: '/gallery/landscapes', name: 'Landscapes', file: '../assets/gallery-links/landscapes.webp' },
+  { route: '/gallery/plants', name: 'Plants', file: '../assets/gallery-links/plants.webp' },
+];
 ---
 
+
 <div class="flow gallery-links-container">
-  <h2 class="visually-hidden">Galleries</h2>
+  <h3 class="visually-hidden">Galleries</h3>
 
   <ul role="list" class="gallery-links">
-    {Object.entries(galleryImages).map(([key, image]) => (
+    {galleryItems.map(({ route, name, file }) => (
       <li>
-        <a href={`/${key}`}>
-          <CldImage 
-            src={image} 
-            alt={key.charAt(0).toUpperCase() + key.slice(1)} 
-            width={600}
-            height={600}
-            crop={{
-              type: 'auto',
-              source: true
-            }}
-            sizes="25vw"
-          />
+        <a href={route}>
+          <Image src={images[file].default} alt={name} />
         </a>
-        <a href={`/${key}`} class="button">
-          {key.charAt(0).toUpperCase() + key.slice(1)}
-        </a>
+        <a class="button" href={route}>{name}</a>
       </li>
     ))}
   </ul>
-
 </div>
 
 <style>
 .gallery-links-container {
   container-type: inline-size;
 }
+
 .gallery-links {
   display: grid;
   gap: 2rem 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(25ch, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  max-width: 1180px;
+  margin-inline: auto;
 }
 
+.gallery-links img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+}
 </style>

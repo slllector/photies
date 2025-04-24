@@ -1,5 +1,5 @@
 {
-  "name": "",
+  "name": "slllector",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
@@ -9,7 +9,6 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.7.4",
-    "astro-cloudinary": "^1.3.2"
+    "astro": "^5.7.4"
   }
 }

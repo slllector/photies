@@ -133,3 +133,9 @@ footer {
     color: var(--clr-white);
   }
 }
+
+h2 {
+  font-weight: var(--fw-regular);
+  letter-spacing: 0.1em;
+  padding-bottom: 2rem;
+}

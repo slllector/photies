@@ -1,0 +1,49 @@
+---
+const { class: className } = Astro.props;
+
+import { Image } from "astro:assets";
+import aboutImg from "../assets/about.webp";
+---
+
+<div class:list={[className, "front-page-container"]}>
+<h2 class="visually-hidden">Featured Image</h2>
+<article>
+   <Image src={ aboutImg } alt="Person taking a photograph in a mirror" quality="mid" />
+  <h2>About</h2>
+  <div class="flow">
+    <p>Hi, I'm the person behind Slllector. I love taking photos that tell real, honest stories—whether it's a quiet moment or something that just catches the eye. Thanks for stopping by. I hope you enjoy seeing the world the way I do, one photo at a time.</p>
+    <a href="/contact" class="button">
+      Get in touch!
+    </a>
+  </div>
+</article>
+</div>
+
+<style>
+  .front-page-container {
+    container-type: inline-size;
+    margin-bottom: 3rem;
+  }
+  article {
+    display: grid;
+    gap: 1rem;
+    @container (width > calc(25ch * 2)){
+      gap: 2rem 1rem;
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  img {
+  grid-column: 1 / -1;
+
+  width: 100%;
+  height: auto;
+  display: block;
+  }
+
+  h3 {
+    font-size: var(--fs-600);
+    font-weight: var(--fw-regular);
+    letter-spacing: 0.1em;
+  }
+</style>

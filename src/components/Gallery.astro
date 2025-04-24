@@ -1,65 +1,50 @@
 ---
-import { getCollection } from 'astro:content';
-import { CldImage } from 'astro-cloudinary';
-import { getAltTextFromPublicId } from '../utils/helpers';
+import { Image } from 'astro:assets'; // Ensure this import is included
+const { collection } = Astro.props;
 
-const { title, collection } = Astro.props;
+// Glob import all images from the selected collection (landscapes, nature, etc.)
+const allImages = import.meta.glob('/src/assets/{landscapes,nature,plants,urban}/*.{jpg,jpeg,webp,png}', {
+  eager: true,
+  query: { as: 'image' }
+});
 
-interface ImageData {
-  public_id: string;
-  width: number;
-  height: number;
-}
 
-interface CollectionEntry {
-  data: ImageData;
-}
+// Filter out images based on the collection
+const imageEntries = Object.entries(allImages)
+  .filter(([path]) => path.includes(`/${collection}/`)) // Ensure the right collection
+  .sort(([a], [b]) => a.localeCompare(b)); // Sort by name or filename
 
-const photos = await getCollection(collection) as CollectionEntry[];
+// Dynamically import images
+const imageImports = await Promise.all(imageEntries.map(async ([path, img]) => {
+  const imageModule = await import(path);
+  return { path, imgSrc: imageModule.default || imageModule }; // safely access the default export
+}));
 ---
 
-<h2>{title}</h2>
-
 <ul class="gallery" role="list">
-  {photos.map(({ data }) => {
-    const altText = getAltTextFromPublicId(data.public_id);
-    return (
-      <li>
-        <figure>
-          <a 
-            href={`https://res.cloudinary.com/db1vng5gb/image/upload/${data.public_id}`} 
-            class="glightbox"
-            data-gallery="gallery1"
-            data-type="image" 
-            data-sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" 
-          >
-            <CldImage 
-              src={data.public_id}
-              width={data.width}
-              height={data.height}
-              alt={altText}
-              title={altText}
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              loading="lazy"
-              format="auto"
-            />
-          </a>
-          <figcaption>{altText}</figcaption>
-        </figure>
-      </li>
-    );
-  })}
+  {imageImports.length === 0 ? (
+    <li>No images found for this gallery. Please check the collection name.</li>
+  ) : (
+    imageImports.map(({ path, imgSrc }) => {
+      const filename = path.split('/').pop()?.split('.').shift() || "Untitled";
+
+      return (
+        <li>
+          <figure>
+            <Image src={imgSrc} alt={filename.replace(/[-_]/g, ' ')} style={{ width: '100%', height: 'auto' }} />
+            <figcaption>{filename.replace(/[-_]/g, ' ')}</figcaption>
+          </figure>
+        </li>
+      );
+    })
+  )}
 </ul>
 
 <style>
-h2 {
-  font-weight: var(--fw-regular);
-  letter-spacing: 0.1em;
-  padding-bottom: 2rem;
-}
 .gallery {
   column-width: 300px;
 }
+
 figure {
   margin: 0;
   margin-bottom: 1rem;

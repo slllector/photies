@@ -1,0 +1,21 @@
+---
+// src/pages/gallery/[collection].astro
+
+export async function getStaticPaths() {
+  const collections = ['landscapes', 'nature', 'plants', 'urban'];
+  return collections.map((collection) => ({
+    params: { collection },
+  }));
+}
+
+import PrimaryLayout from '../../layouts/PrimaryLayout.astro';
+import Gallery from '../../components/Gallery.astro';
+
+const { collection = '' } = Astro.params;
+const title = collection.charAt(0).toUpperCase() + collection.slice(1);
+---
+
+<PrimaryLayout title={title}>
+  <h2>{title}</h2>
+  <Gallery collection={collection} title={title} />
+</PrimaryLayout>
