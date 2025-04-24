@@ -57,7 +57,7 @@ const { pathname } = Astro.url;
       <li>
         <a 
           href={item.path} 
-          class={pathname === item.path ? 'active' : ''}
+          class={pathname.replace(/\/$/, '') === item.path.replace(/\/$/, '') ? 'active' : ''}
         >
           {item.label}
         </a>
