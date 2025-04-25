@@ -9,6 +9,12 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.7.4"
+    "astro": "^5.7.4",
+    "imagesloaded": "^5.0.0",
+    "masonry-layout": "^4.2.2"
+  },
+  "devDependencies": {
+    "@types/imagesloaded": "^4.1.6",
+    "@types/masonry-layout": "^4.2.8"
   }
 }
